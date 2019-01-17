@@ -1,6 +1,6 @@
 //
-//  TvOSSlider.swift
-//  TvOSSlider
+// JetTvOSSlider.swift
+// JetTvOSSlider
 //
 //  Created by Vivek Shinde on 16.01.19.
 //  Copyright © 2018 Vivek Shinde. All rights reserved.
@@ -17,6 +17,7 @@ private let defaultMinimumValue: Float = 0
 private let defaultMaximumValue: Float = 1
 private let defaultIsContinuous: Bool = true
 private let defaultThumbTintColor: UIColor = .white
+private let defaultFocusableThumbTintColor: UIColor = .white
 private let defaultTrackColor: UIColor = .gray
 private let defaultMininumTrackTintColor: UIColor = .blue
 private let defaultFocusScaleFactor: CGFloat = 1.05
@@ -87,6 +88,13 @@ public final class JetTvOSSlider: UIControl {
     public var thumbTintColor: UIColor = defaultThumbTintColor {
         didSet {
             thumbView.backgroundColor = thumbTintColor
+        }
+    }
+    
+    @IBInspectable
+    public var focusableThumbTintColor: UIColor = defaultFocusableThumbTintColor {
+        didSet {
+        
         }
     }
     
@@ -386,10 +394,12 @@ public final class JetTvOSSlider: UIControl {
         thumbView.image = thumbViewImages[state.rawValue] ?? thumbViewImages[UIControl.State.normal.rawValue]
         
         if isFocused {
-            transform = CGAffineTransform(scaleX: focusScaleFactor, y: focusScaleFactor)
+            thumbView.backgroundColor = focusableThumbTintColor
+            thumbView.transform = CGAffineTransform(scaleX: focusScaleFactor, y: focusScaleFactor)
         }
         else {
-            transform = CGAffineTransform.identity
+            thumbView.backgroundColor = thumbTintColor
+            thumbView.transform = CGAffineTransform.identity
         }
     }
     
